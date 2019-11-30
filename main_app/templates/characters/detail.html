@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="teal-text">{{ character.name }}</h1>
+
+<div class="card">
+  <div class="card-content">
+    <p class="card-title">{{ character.description }}</p>
+    <p>Actor: {{ character.actor }}</p>
+  </div>
+</div>
+<h3 class="teal-text">Quotes</h3>
+  {% for quote in quotes %}
+<div class="card">
+  <div class="card-content">
+    {% if quote.aimed_at %}
+    <p class="card-title">To 
+      <a class="teal-text" href="{% url 'characters_detail' quote.aimed_at.id %}">
+      {{ quote.aimed_at.name }}:
+      </a>
+    </p>
+    {% endif %}
+    <p>"{{ quote.text }}"</p>
+  </div>
+</div>
+  {% endfor %}
+  {% for rec_quote in rec_quotes %}
+<div class="card">
+  <div class="card-content">
+    <p class="card-title">from 
+      <a class="teal-text" href="{% url 'characters_detail' rec_quote.said_by.id %}">
+        {{ rec_quote.said_by.name }}:
+      </a>
+    </p>
+    <p>"{{ rec_quote.text }}"</p>
+  </div>
+</div>
+  {% endfor %}
+
+{% endblock %}
